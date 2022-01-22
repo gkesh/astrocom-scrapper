@@ -1,0 +1,49 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+scalar Timestamp
+
+type Reader {
+    username: String!
+    email: String!
+    date_birthed: Timestamp!
+    date_joined: Timestamp!
+}
+
+type Author {
+    first_name: String!
+    last_name: String!
+    biography: String
+}
+
+type Publisher {
+    name: String!
+    address: String!
+    country: String!
+    history: String
+}
+
+type Genre {
+    name: String!
+    description: String
+}
+
+type Chapter {
+    title: String!
+    date_released: Timestamp!
+}
+
+type Comic {
+    title: String!
+    genres: [Genre]!
+    chapters: [Chapter]!
+    synopsis: String
+    date_published: Timestamp!
+    date_updated: Timestamp!
+}
+
+type Query {
+    getAllAuthors: [Author]!
+}
