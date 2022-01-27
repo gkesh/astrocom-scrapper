@@ -1,15 +1,12 @@
 schema {
     query: Query
-    mutation: Mutation
 }
-
-scalar Timestamp
 
 type Reader {
     username: String!
     email: String!
-    date_birthed: Timestamp!
-    date_joined: Timestamp!
+    date_birthed: String!
+    date_joined: String!
 }
 
 type Author {
@@ -20,9 +17,16 @@ type Author {
 
 type Publisher {
     name: String!
-    address: String!
     country: String!
     history: String
+}
+
+enum ComicType {
+    MANGA,
+    WESTERN,
+    MANHUA,
+    MANHWA,
+    WEB
 }
 
 type Genre {
@@ -32,18 +36,35 @@ type Genre {
 
 type Chapter {
     title: String!
-    date_released: Timestamp!
+    pages: Int!
+    date_released: String!
 }
 
 type Comic {
     title: String!
+    type: ComicType!
     genres: [Genre]!
+    author: Author!
+    publisher: Publisher
     chapters: [Chapter]!
     synopsis: String
-    date_published: Timestamp!
-    date_updated: Timestamp!
+    date_published: String!
+    date_updated: String!
+}
+
+type AuthorsResponse {
+    status: Boolean!
+    data: [Author]
+    error: [String]
+}
+
+type PublishersResponse {
+    status: Boolean!
+    data: [Publisher]
+    error: [String]
 }
 
 type Query {
-    getAllAuthors: [Author]!
+    authors: AuthorsResponse!
+    publishers: PublishersResponse!
 }

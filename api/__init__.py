@@ -10,7 +10,3 @@ app.config["MONGODB_SETTINGS"] = {
 
 db: MongoEngine = MongoEngine()
 db.init_app(app)
-
-@app.route('/')
-def info() -> str:
-    return "Welcome to Astrocom Scrapper v0.5"

@@ -1,6 +1,6 @@
-from email.policy import default
-from pydoc import synopsis
 from api import db
+from api.models.author import Author
+from api.models.publisher import Publisher
 from enum import Enum, auto
 from datetime import datetime
 
@@ -44,14 +44,14 @@ class Chapter(db.EmbeddedDocument):
     page count, etc.
     """
     title = db.StringField(max_length=200, required=False)
-    pages = db.ListField(db.ImageField(thumbnail_size=(64, 100, True)))
+    pages = db.IntField(min_value=0)
     date_released = db.DateTimeField(required=True, default=datetime.utcnow)
 
     def to_dict(self) -> dict:
         return {
             "title": self.title,
             "pages": self.pages,
-            "date_released": self.date_released
+            "date_released": str(self.date_released.strftime('%d-%m-%Y'))
         }
 
 
@@ -63,10 +63,11 @@ class Comic(db.Document):
     Encompases western comics, manga, manhwa, manhua, web novels, etc.
     """
     title = db.StringField(max_length=200, required=True)
-    cover = db.ImageField(size=(320, 500, True), thumbnail_size=(64, 100, True), required=True)
     type = db.EnumField(ComicType, default=ComicType.MANGA)
     genres = db.ListField(db.EmbeddedDocumentField(Genre))
     chapters = db.ListField(db.EmbeddedDocumentField(Chapter))
+    author = db.LazyReferenceField(Author, required=True, reverse_delete_rule=3)
+    publisher = db.LazyReferenceField(Author, reverse_delete_rule=1)
     synopsis = db.StringField(required=False)
     date_published = db.DateTimeField(required=True, default=datetime.utcnow)
     date_updated = db.DateTimeField(default=datetime.utcnow)
@@ -77,8 +78,10 @@ class Comic(db.Document):
             "type": self.type,
             "genres": [genre.to_dict() for genre in self.genres],
             "chapters": [chapter.to_dict() for chapter in self.chapters],
+            "author": self.author.to_dict(),
+            "publisher": self.publisher.to_dict(),
             "synopsis": self.synopsis,
-            "date_published": self.date_published,
-            "date_updated": self.date_updated
+            "date_published": str(self.date_published.strftime('%d-%m-%Y')),
+            "date_updated": str(self.date_updated.strftime('%d-%m-%Y'))
         }
 
