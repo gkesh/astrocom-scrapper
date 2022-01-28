@@ -1,3 +1,4 @@
+import os
 from api import app
 from api.gql.root import schema
 from ariadne import graphql_sync
@@ -7,13 +8,13 @@ from ariadne.constants import PLAYGROUND_HTML
 
 @app.route('/')
 def info() -> str:
-    return "Welcome to Astrocom Scrapper v0.5"
+    return "Welcome to Astrocom Scrapper v0.5", 200
 
-@app.route("/astroql", methods=["GET"])
+@app.route(os.getenv("GRAPHQL_ENDPOINT"), methods=["GET"])
 def astrocom_playground():
     return PLAYGROUND_HTML, 200
 
-@app.route("/astroql", methods=["POST"])
+@app.route(os.getenv("GRAPHQL_ENDPOINT"), methods=["POST"])
 def astrocom_server():
     data = request.get_json()
 

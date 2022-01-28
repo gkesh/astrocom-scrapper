@@ -35,7 +35,8 @@ type Genre {
 }
 
 type Chapter {
-    title: String!
+    number: Int!
+    title: String
     pages: Int!
     date_released: String!
 }
@@ -64,7 +65,14 @@ type PublishersResponse {
     error: [String]
 }
 
+type ComicsResponse {
+    status: Boolean!
+    data: [Comic]
+    error: [String]
+}
+
 type Query {
     authors: AuthorsResponse!
     publishers: PublishersResponse!
+    comics: ComicsResponse!
 }
