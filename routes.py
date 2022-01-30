@@ -1,9 +1,11 @@
 import os
+import json
 from api import app
 from api.gql.root import schema
 from ariadne import graphql_sync
 from flask import request, jsonify
 from ariadne.constants import PLAYGROUND_HTML
+from flask_cors import cross_origin
 
 
 @app.route('/')
@@ -15,12 +17,11 @@ def astrocom_playground():
     return PLAYGROUND_HTML, 200
 
 @app.route(os.getenv("GRAPHQL_ENDPOINT"), methods=["POST"])
+@cross_origin()
 def astrocom_server():
-    data = request.get_json()
-
     success, result = graphql_sync(
         schema,
-        data,
+        json.loads(request.get_data()),
         context_value=request,
         debug=app.debug
     )

@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_mongoengine import MongoEngine
 
+
 app: Flask = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {
     'db': os.getenv("DB_NAME"),
