@@ -5,8 +5,12 @@ from api.gql.root import schema
 from ariadne import graphql_sync
 from flask import request, jsonify
 from ariadne.constants import PLAYGROUND_HTML
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 
+
+CORS(app)
+app.config['CORS_HEADERS'] = ['Content-Type', 'Access-Control-Allow-Origin']
+app.config['CORS_ORIGINS'] = '*'
 
 @app.route('/')
 def info() -> str:
