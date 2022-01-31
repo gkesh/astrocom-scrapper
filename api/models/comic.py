@@ -1,7 +1,7 @@
 from api import db
 from api.models.author import Author
 from api.models.publisher import Publisher
-from enum import IntEnum
+from enum import IntEnum, unique
 from datetime import datetime
 
 
@@ -25,7 +25,7 @@ class Genre(db.EmbeddedDocument):
     The genre defines the category any creation
     belongs to and helps identify its nature
     """
-    name = db.StringField(max_length=100, required=True)
+    name = db.StringField(max_length=100, required=True, unique=True)
     description = db.StringField(required=True)
 
     def to_dict(self) -> dict:
@@ -65,7 +65,7 @@ class Comic(db.Document):
     Encompases western comics, manga, manhwa, manhua, web novels, etc.
     """
     _id = db.ObjectIdField()
-    title = db.StringField(max_length=200, required=True)
+    title = db.StringField(max_length=200, required=True, unique=True)
     type = db.EnumField(ComicType, default=ComicType.MANGA)
     genres = db.ListField(db.EmbeddedDocumentField(Genre))
     chapters = db.ListField(db.EmbeddedDocumentField(Chapter))

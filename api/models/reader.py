@@ -1,9 +1,10 @@
+from enum import unique
 from api import db
 from datetime import datetime
 
 class Reader(db.Document):
     _id = db.ObjectIdField()
-    username = db.StringField(max_length=200, required=True)
+    username = db.StringField(max_length=200, required=True, unique=True)
     email = db.EmailField(domain_whitelist=["gmail.com", "hotmail.com", "outlook.com", "apple.com"])
     date_birthed = db.DateTimeField(required=True)
     date_joined = db.DateTimeField(default=datetime.utcnow)
