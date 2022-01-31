@@ -3,6 +3,7 @@ schema {
 }
 
 type Reader {
+    id: ID!
     username: String!
     email: String!
     date_birthed: String!
@@ -10,12 +11,14 @@ type Reader {
 }
 
 type Author {
+    id: ID!
     first_name: String!
     last_name: String!
     biography: String
 }
 
 type Publisher {
+    id: ID!
     name: String!
     country: String!
     history: String
@@ -30,11 +33,13 @@ enum ComicType {
 }
 
 type Genre {
+    id: ID!
     name: String!
     description: String
 }
 
 type Chapter {
+    id: ID!
     number: Int!
     title: String
     pages: Int!
@@ -42,6 +47,7 @@ type Chapter {
 }
 
 type Comic {
+    id: ID!
     title: String!
     type: ComicType!
     genres: [Genre]!

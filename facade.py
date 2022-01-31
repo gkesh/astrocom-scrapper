@@ -3,10 +3,10 @@ load_dotenv()
 
 from api.models.author import Author
 from api.models.publisher import Publisher
+from api.models.genre import Genre
 from api.models.comic import (
     Comic,
     ComicType,
-    Genre,
     Chapter
 )
 
@@ -31,17 +31,23 @@ publisher = Publisher(
 publisher.save()
 print(publisher.to_dict())
 
+print_process("Genre")
+genre = Genre(
+    name="Action", 
+    description="Packed with fight scenes and massive power battles & world ending stakes. The battle of good and evil of epic proportions."
+)
+genre.save()
+print(genre.to_dict())
+
 print_process("Comic")
-genre = Genre(name="Action", description="Packed with fight scenes and massive power battles & world ending stakes. The battle of good and evil of epic proportions.")
 chapter = Chapter(number=1, pages=20)
 comic = Comic(
     title="One Piece",
     type=ComicType.MANGA,
-    genres=[genre],
     chapters=[chapter],
     synopsis="The story follows the adventures of Monkey D. Luffy, a boy whose body gained the properties of rubber after unintentionally eating a Devil Fruit. With his pirate crew, the Straw Hat Pirates, Luffy explores the Grand Line in search of the world's ultimate treasure known as the One Piece in order to become the next King of the Pirates."
 )
-
+comic.genre = genre.to_dbref()
 comic.author = author.to_dbref()
 comic.publisher = publisher.to_dbref()
 comic.save()
