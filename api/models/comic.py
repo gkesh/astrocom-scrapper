@@ -2,6 +2,7 @@ from api import db
 from enum import IntEnum
 from api.models.author import Author
 from api.models.publisher import Publisher
+from api.models.genre import Genre
 from datetime import datetime
 
 
@@ -37,25 +38,6 @@ class Chapter(db.EmbeddedDocument):
             "title": self.title,
             "pages": self.pages,
             "date_released": str(self.date_released.strftime('%d-%m-%Y'))
-        }
-
-
-class Genre(db.Document):
-    """
-    Genre Class
-
-    The genre defines the category any creation
-    belongs to and helps identify its nature
-    """
-    _id = db.ObjectIdField()
-    name = db.StringField(max_length=100, required=True, unique=True)
-    description = db.StringField(required=True)
-
-    def to_dict(self) -> dict:
-        return {
-            "id": self._id,
-            "name": self.name,
-            "description": self.description
         }
 
 
