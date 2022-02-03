@@ -50,3 +50,28 @@ def resolve_comics(*_) -> dict:
             "error": [str(error)]
         }
     return payload
+
+@query.field("titles")
+def resolve_comic_titles(*_) -> dict:
+    try:
+        titles = [{"title": title, "code": code} for code, title in Comic.objects.scalar('code', 'title')]
+        payload = {
+            "status": True,
+            "data": titles
+        }
+    except Exception as error:
+        payload = {
+            "status": False,
+            "data": [str(error)]
+        }
+    return payload
+
+@query.field("chapters")
+def resolve_comic_chapters(*_) -> dict:
+    # TODO: Implement Chpaters Query based on Variable
+    pass
+
+@query.field("chapter")
+def resolve_comic_chapter(*_) -> dict:
+    # TODO: Implement specific chapter fetch
+    pass

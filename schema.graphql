@@ -3,24 +3,24 @@ schema {
 }
 
 type Reader {
-    id: ID!
+    id: ID
     username: String!
-    email: String!
-    date_birthed: String!
-    date_joined: String!
+    email: String
+    date_birthed: String
+    date_joined: String
 }
 
 type Author {
-    id: ID!
+    id: ID
     first_name: String!
     last_name: String!
     biography: String
 }
 
 type Publisher {
-    id: ID!
+    id: ID
     name: String!
-    country: String!
+    country: String
     history: String
 }
 
@@ -33,13 +33,13 @@ enum ComicType {
 }
 
 type Genre {
-    id: ID!
+    id: ID
     name: String!
     description: String
 }
 
 type Chapter {
-    id: ID!
+    id: ID
     number: Int!
     title: String
     pages: Int!
@@ -47,16 +47,17 @@ type Chapter {
 }
 
 type Comic {
-    id: ID!
+    id: ID
     title: String!
-    type: ComicType!
-    genres: [Genre]!
-    author: Author!
+    code: String!
+    type: ComicType
+    genres: [Genre]
+    author: Author
     publisher: Publisher
-    chapters: [Chapter]!
+    chapters: [Chapter]
     synopsis: String
-    date_published: String!
-    date_updated: String!
+    date_published: String
+    date_updated: String
 }
 
 type AuthorsResponse {
@@ -81,4 +82,5 @@ type Query {
     authors: AuthorsResponse!
     publishers: PublishersResponse!
     comics: ComicsResponse!
+    titles: ComicsResponse!
 }
