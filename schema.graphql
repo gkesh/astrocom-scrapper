@@ -43,18 +43,20 @@ type Chapter {
     number: Int!
     title: String
     pages: Int!
+    max: Int
     date_released: String!
 }
 
 type Comic {
     id: ID
-    title: String!
+    title: String
     code: String!
     type: ComicType
     genres: [Genre]
     author: Author
     publisher: Publisher
     chapters: [Chapter]
+    count: Int
     synopsis: String
     date_published: String
     date_updated: String
@@ -78,9 +80,24 @@ type ComicsResponse {
     error: [String]
 }
 
+type ComicResponse {
+    status: Boolean!
+    data: Comic
+    error: [String]
+}
+
+type ChapterResponse {
+    status: Boolean!
+    data: Chapter
+    error: [String]
+}
+
 type Query {
     authors: AuthorsResponse!
     publishers: PublishersResponse!
     comics: ComicsResponse!
+    comic(comic: String!): ComicResponse!
     titles: ComicsResponse!
+    chapters: ComicsResponse!
+    chapter(comic: String!, number: Int!): ChapterResponse!
 }

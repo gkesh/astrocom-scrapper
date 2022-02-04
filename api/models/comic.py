@@ -1,3 +1,4 @@
+from email.policy import default
 from api import db
 from enum import IntEnum
 from api.models.author import Author
@@ -53,7 +54,8 @@ class Comic(db.Document):
     code = db.StringField(max_length=20, required=True, unique=True)
     type = db.EnumField(ComicType, default=ComicType.MANGA)
     genres = db.ListField(db.ReferenceField(Genre, dbref=True, reverse_delete_rule=1), default=[])
-    chapters = db.ListField(db.EmbeddedDocumentField(Chapter))
+    chapters = db.EmbeddedDocumentListField(Chapter)
+    ongoing = db.BooleanField(default=True)
     author = db.ReferenceField(Author, dbref=True, required=True, reverse_delete_rule=3)
     publisher = db.ReferenceField(Publisher, dbref=True, reverse_delete_rule=1)
     synopsis = db.StringField(required=False)

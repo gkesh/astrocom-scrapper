@@ -1,7 +1,8 @@
-from ariadne import ObjectType
+from ariadne import ObjectType, convert_kwargs_to_snake_case
 from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.comic import Comic
+from api.models.comic import Chapter
 
 
 query = ObjectType("Query")
@@ -54,7 +55,7 @@ def resolve_comics(*_) -> dict:
 @query.field("titles")
 def resolve_comic_titles(*_) -> dict:
     try:
-        titles = [{"title": title, "code": code} for code, title in Comic.objects.scalar('code', 'title')]
+        titles: list[dict[str, str]] = [{"title": title, "code": code} for code, title in Comic.objects.scalar('code', 'title')]
         payload = {
             "status": True,
             "data": titles
@@ -62,16 +63,55 @@ def resolve_comic_titles(*_) -> dict:
     except Exception as error:
         payload = {
             "status": False,
-            "data": [str(error)]
+            "error": [str(error)]
+        }
+    return payload
+
+@query.field("comic")
+def resolve_comic_chapters(*_, comic) -> dict:
+    try:
+        comic: Comic = Comic.objects.get(code=comic)
+        payload = {
+            "status": True,
+            "data": comic.to_dict()
+        }
+    except Exception as error:
+        payload = {
+            "status": False,
+            "error": [str(error)]
         }
     return payload
 
 @query.field("chapters")
 def resolve_comic_chapters(*_) -> dict:
-    # TODO: Implement Chpaters Query based on Variable
-    pass
+    try:
+        chapters: list[dict] = [{"code": comic.code, "count": comic.chapters.count()} for comic in Comic.objects]
+        payload = {
+            "status": True,
+            "data": chapters
+        }
+    except Exception as error:
+        payload = {
+            "status": False,
+            "error": [str(error)]
+        }
+    return payload
 
 @query.field("chapter")
-def resolve_comic_chapter(*_) -> dict:
-    # TODO: Implement specific chapter fetch
-    pass
+def resolve_comic_chapter(*_, comic, number) -> dict:
+    try:
+        chapters = Comic.objects.get(code=comic).chapters
+        chapter: dict = chapters.get(number=number).to_dict()
+        count: int = chapters.count()
+        chapter["max"] = count
+
+        payload = {
+            "status": True,
+            "data": chapter
+        }
+    except Exception as error:
+        payload = {
+            "status": False,
+            "error": [str(error)]
+        }
+    return payload
