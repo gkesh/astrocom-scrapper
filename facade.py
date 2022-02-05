@@ -70,7 +70,7 @@ def genre_get_or_create(name) -> Genre:
     return genre
 
 
-def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t, comic_c, comic_ch, comic_s, comic_g, comic_p):
+def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t, comic_c, comic_ch, comic_s, comic_g, comic_p, comic_o, comic_src):
     """
     Creating Comics
 
@@ -86,6 +86,8 @@ def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t
         code=comic_c,
         chapters=chapter_documents,
         synopsis=comic_s,
+        ongoing=comic_o,
+        source=comic_src,
         date_published=comic_p
     )
 
@@ -117,8 +119,10 @@ comic_facades = [
             "country": "Korea"
         },
         "code": "solo",
+        "source": "https://kissmanga.org/chapter/manga-dr980474/",
         "type": ComicType.MANHWA,
         "genres": ["Action", "Adventure", "Shounen", "Fantasy"],
+        "ongoing": False,
         "date_published": datetime(2016, 11, 4)
     },
     {
@@ -134,8 +138,10 @@ comic_facades = [
             "country": "Japan"
         },
         "code": "kimetsu",
+        "source": "https://kissmanga.org/manga/manga-to970571",
         "type": ComicType.MANGA,
         "genres": ["Historical", "Adventure", "Shounen", "Fantasy"],
+        "ongoing": False,
         "date_published": datetime(2016, 2, 15)
     },
     {
@@ -151,8 +157,10 @@ comic_facades = [
             "country": None
         },
         "code": "omniscient",
+        "source": "https://kissmanga.org/chapter/manga-iw985579/",
         "type": ComicType.MANHWA,
         "genres": ["Action", "Adventure", "Isekai", "Fantasy"],
+        "ongoing": True,
         "date_published": datetime(2020, 1, 1)
     },
     {
@@ -168,8 +176,10 @@ comic_facades = [
             "country": "Japan"
         },
         "code": "kaiju8",
+        "source": "https://kaijuno-8.com/manga/read-kaiju-no-8monster-8-",
         "type": ComicType.MANGA,
         "genres": ["Action", "Comedy", "Mecha"],
+        "ongoing": True,
         "date_published": datetime(2020, 7, 3)
     }
 ]
@@ -187,5 +197,7 @@ for facade in comic_facades:
         comic_ch=facade["chapters"],
         comic_s=facade["synopsis"],
         comic_g=facade["genres"],
-        comic_p=facade["date_published"]
+        comic_p=facade["date_published"],
+        comic_o=facade["ongoing"],
+        comic_src=facade["source"]
     )

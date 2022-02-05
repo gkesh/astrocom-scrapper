@@ -2,14 +2,6 @@ schema {
     query: Query
 }
 
-type Reader {
-    id: ID
-    username: String!
-    email: String
-    date_birthed: String
-    date_joined: String
-}
-
 type Author {
     id: ID
     first_name: String!
@@ -51,15 +43,26 @@ type Comic {
     id: ID
     title: String
     code: String!
+    source: String
     type: ComicType
     genres: [Genre]
     author: Author
     publisher: Publisher
     chapters: [Chapter]
     count: Int
+    ongoing: Boolean
     synopsis: String
     date_published: String
     date_updated: String
+}
+
+type Reader {
+    id: ID
+    username: String!
+    email: String
+    favorites: [Comic]
+    date_birthed: String
+    date_joined: String
 }
 
 type AuthorsResponse {

@@ -1,6 +1,6 @@
 from email.policy import default
 from api import db
-from enum import IntEnum
+from enum import IntEnum, unique
 from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.genre import Genre
@@ -52,6 +52,7 @@ class Comic(db.Document):
     _id = db.ObjectIdField()
     title = db.StringField(max_length=200, required=True)
     code = db.StringField(max_length=20, required=True, unique=True)
+    source = db.URLField(required=True, unique=True)
     type = db.EnumField(ComicType, default=ComicType.MANGA)
     genres = db.ListField(db.ReferenceField(Genre, dbref=True, reverse_delete_rule=1), default=[])
     chapters = db.EmbeddedDocumentListField(Chapter)
@@ -67,9 +68,11 @@ class Comic(db.Document):
             "id": str(self._id),
             "title": self.title,
             "code": self.code,
+            "source": self.source,
             "type": self.type,
             "genres": [genre.to_dict() for genre in self.select_related().genres],
             "chapters": [chapter.to_dict() for chapter in self.chapters],
+            "ongoing": self.ongoing,
             "author": self.author.to_dict(),
             "publisher": self.publisher.to_dict() if self.publisher else {"name": "N/A"},
             "synopsis": self.synopsis,
