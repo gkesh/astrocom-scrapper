@@ -1,5 +1,6 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Author {
@@ -36,6 +37,8 @@ type Chapter {
     title: String
     pages: Int!
     max: Int
+    visited: Boolean
+    checkpoint: Boolean
     date_released: String!
 }
 
@@ -103,4 +106,9 @@ type Query {
     titles: ComicsResponse!
     chapters: ComicsResponse!
     chapter(comic: String!, number: Int!): ChapterResponse!
+}
+
+type Mutation {
+    visited(comic: String!, chapter: Int!): Boolean!
+    checkpoint(comic: String!, chapter: Int!): Boolean!
 }

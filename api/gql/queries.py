@@ -1,4 +1,4 @@
-from ariadne import ObjectType, convert_kwargs_to_snake_case
+from ariadne import ObjectType
 from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.comic import Comic
@@ -6,6 +6,7 @@ from api.models.comic import Chapter
 
 
 query = ObjectType("Query")
+
 
 @query.field("authors")
 def resolve_authors(*_) -> dict:
@@ -22,6 +23,7 @@ def resolve_authors(*_) -> dict:
         }
     return payload
 
+
 @query.field("publishers")
 def resolve_publishers(*_) -> dict:
     try:
@@ -36,6 +38,7 @@ def resolve_publishers(*_) -> dict:
             "error": [str(error)]
         }
     return payload
+
 
 @query.field("comics")
 def resolve_comics(*_) -> dict:
@@ -52,6 +55,7 @@ def resolve_comics(*_) -> dict:
         }
     return payload
 
+
 @query.field("titles")
 def resolve_comic_titles(*_) -> dict:
     try:
@@ -66,6 +70,7 @@ def resolve_comic_titles(*_) -> dict:
             "error": [str(error)]
         }
     return payload
+
 
 @query.field("comic")
 def resolve_comic_chapters(*_, comic) -> dict:
@@ -82,6 +87,7 @@ def resolve_comic_chapters(*_, comic) -> dict:
         }
     return payload
 
+
 @query.field("chapters")
 def resolve_comic_chapters(*_) -> dict:
     try:
@@ -96,6 +102,7 @@ def resolve_comic_chapters(*_) -> dict:
             "error": [str(error)]
         }
     return payload
+
 
 @query.field("chapter")
 def resolve_comic_chapter(*_, comic, number) -> dict:

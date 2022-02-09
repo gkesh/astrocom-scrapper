@@ -86,10 +86,12 @@ def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t
         code=comic_c,
         chapters=chapter_documents,
         synopsis=comic_s,
-        ongoing=comic_o,
         source=comic_src,
         date_published=comic_p
     )
+
+    if comic_o:
+        comic.ongoing = True
 
     # Adding Genres
     [comic.genres.append(genre_get_or_create(genre).to_dbref()) for genre in comic_g]

@@ -31,6 +31,8 @@ class Chapter(db.EmbeddedDocument):
     number = db.IntField(min_value=0, required=True)
     title = db.StringField(max_length=200, required=False)
     pages = db.IntField(min_value=0)
+    visited = db.BooleanField()
+    checkpoint = db.BooleanField()
     date_released = db.DateTimeField(required=True, default=datetime.utcnow)
 
     def to_dict(self) -> dict:
@@ -38,6 +40,8 @@ class Chapter(db.EmbeddedDocument):
             "number": self.number,
             "title": self.title,
             "pages": self.pages,
+            "visited": True if self.visited is not None else False,
+            "checkpoint": True if self.checkpoint is not None else False,
             "date_released": str(self.date_released.strftime('%d-%m-%Y'))
         }
 
@@ -56,7 +60,7 @@ class Comic(db.Document):
     type = db.EnumField(ComicType, default=ComicType.MANGA)
     genres = db.ListField(db.ReferenceField(Genre, dbref=True, reverse_delete_rule=1), default=[])
     chapters = db.EmbeddedDocumentListField(Chapter)
-    ongoing = db.BooleanField(default=True)
+    ongoing = db.BooleanField()
     author = db.ReferenceField(Author, dbref=True, required=True, reverse_delete_rule=3)
     publisher = db.ReferenceField(Publisher, dbref=True, reverse_delete_rule=1)
     synopsis = db.StringField(required=False)
