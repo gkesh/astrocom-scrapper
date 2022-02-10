@@ -1,16 +1,15 @@
 import os
-from flask import Flask
+from quart import Quart
+from quart_motor import Motor
 from flask_mongoengine import MongoEngine
 
 
-app: Flask = Flask(__name__)
-app.config["MONGODB_SETTINGS"] = {
-    'db': os.getenv("DB_NAME"),
-    'host': os.getenv("DB_HOST"),
-    'port': int(os.getenv("DB_PORT"))
-}
-app.config['CORS_HEADERS'] = ['Content-Type', 'Access-Control-Allow-Origin']
-app.config['CORS_ORIGINS'] = '*'
+app: Quart = Quart(__name__)
+# Mongo Config
+db: str = os.getenv("DB_NAME")
+host: str = os.getenv("DB_HOST")
+port: str = os.getenv("DB_PORT")
 
-db: MongoEngine = MongoEngine()
-db.init_app(app)
+app.config["MONGO_URI"] = f"mongodb://{host}:{port}/{db}"
+
+db = Motor(app)

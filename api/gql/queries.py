@@ -9,9 +9,10 @@ query = ObjectType("Query")
 
 
 @query.field("authors")
-def resolve_authors(*_) -> dict:
+async def resolve_authors(*_) -> dict:
     try:
-        authors = [author.to_dict() for author in Author.objects.all()]
+        result = await Author.objects.all()
+        authors = [author.to_dict() for author in result]
         payload = {
             "status": True,
             "data": authors
@@ -25,9 +26,10 @@ def resolve_authors(*_) -> dict:
 
 
 @query.field("publishers")
-def resolve_publishers(*_) -> dict:
+async def resolve_publishers(*_) -> dict:
     try:
-        publishers = [publisher.to_dict() for publisher in Publisher.objects.all()]
+        result = await Publisher.objects.all()
+        publishers = [publisher.to_dict() for publisher in result]
         payload = {
             "status": True,
             "data": publishers
@@ -41,9 +43,10 @@ def resolve_publishers(*_) -> dict:
 
 
 @query.field("comics")
-def resolve_comics(*_) -> dict:
+async def resolve_comics(*_) -> dict:
     try:
-        comics = [comic.to_dict() for comic in Comic.objects.all()]
+        result = await Comic.objects.all()
+        comics = [comic.to_dict() for comic in result]
         payload = {
             "status": True,
             "data": comics
@@ -57,9 +60,10 @@ def resolve_comics(*_) -> dict:
 
 
 @query.field("titles")
-def resolve_comic_titles(*_) -> dict:
+async def resolve_comic_titles(*_) -> dict:
     try:
-        titles: list[dict[str, str]] = [{"title": title, "code": code} for code, title in Comic.objects.scalar('code', 'title')]
+        result = await Comic.objects.scalar('code', 'title')
+        titles: list[dict[str, str]] = [{"title": title, "code": code} for code, title in result]
         payload = {
             "status": True,
             "data": titles
@@ -73,9 +77,9 @@ def resolve_comic_titles(*_) -> dict:
 
 
 @query.field("comic")
-def resolve_comic_chapters(*_, comic) -> dict:
+async def resolve_comic_chapters(*_, comic) -> dict:
     try:
-        comic: Comic = Comic.objects.get(code=comic)
+        comic: Comic = await Comic.objects.get(code=comic)
         payload = {
             "status": True,
             "data": comic.to_dict()
@@ -89,9 +93,10 @@ def resolve_comic_chapters(*_, comic) -> dict:
 
 
 @query.field("chapters")
-def resolve_comic_chapters(*_) -> dict:
+async def resolve_comic_chapters(*_) -> dict:
     try:
-        chapters: list[dict] = [{"code": comic.code, "count": comic.chapters.count()} for comic in Comic.objects]
+        result = await Comic.objects
+        chapters: list[dict] = [{"code": comic.code, "count": comic.chapters.count()} for comic in result]
         payload = {
             "status": True,
             "data": chapters
@@ -105,10 +110,10 @@ def resolve_comic_chapters(*_) -> dict:
 
 
 @query.field("chapter")
-def resolve_comic_chapter(*_, comic, number) -> dict:
+async def resolve_comic_chapter(*_, comic, number) -> dict:
     try:
-        chapters = Comic.objects.get(code=comic).chapters
-        chapter: dict = chapters.get(number=number).to_dict()
+        chapters = await Comic.objects.get(code=comic).chapters
+        chapter: dict = await chapters.get(number=number).to_dict()
         count: int = chapters.count()
         chapter["max"] = count
 
