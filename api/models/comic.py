@@ -28,7 +28,7 @@ class Chapter(db.EmbeddedDocument):
     which may include title, date released, 
     page count, etc.
     """
-    number = db.IntField(min_value=0, required=True)
+    number = db.FloatField(min_value=0.0, required=True)
     title = db.StringField(max_length=200, required=False)
     pages = db.IntField(min_value=0)
     visited = db.BooleanField()

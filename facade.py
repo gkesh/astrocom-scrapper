@@ -78,7 +78,7 @@ def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t
     rest can be done easily with manual entry for now
     """
 
-    chapter_documents = [Chapter(number=n+1, pages=p) for n, p in enumerate(comic_ch)]
+    chapter_documents = [Chapter(number=float(n+1), pages=p) for n, p in enumerate(comic_ch)]
 
     comic = Comic(
         title=comic_n,

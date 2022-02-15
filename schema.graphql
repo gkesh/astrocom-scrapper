@@ -33,7 +33,7 @@ type Genre {
 
 type Chapter {
     id: ID
-    number: Int!
+    number: Float!
     title: String
     pages: Int!
     max: Int
@@ -105,10 +105,10 @@ type Query {
     comic(comic: String!): ComicResponse!
     titles: ComicsResponse!
     chapters: ComicsResponse!
-    chapter(comic: String!, number: Int!): ChapterResponse!
+    chapter(comic: String!, number: Float!): ChapterResponse!
 }
 
 type Mutation {
-    visited(comic: String!, chapter: Int!): Boolean!
-    checkpoint(comic: String!, chapter: Int!): Boolean!
+    visited(comic: String!, chapter: Float!): Boolean!
+    checkpoint(comic: String!, chapter: Float!): Boolean!
 }
