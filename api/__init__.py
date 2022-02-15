@@ -1,13 +1,25 @@
-import os
+"""
+The api module handles all operations
+related to the database calls as well
+as the graphql operations.
+
+The module will be slightly coupled to
+the engine module but won't depend on it
+completely to function.
+
+@author gkesh
+"""
+
+from os import getenv as env
 from flask import Flask
 from flask_mongoengine import MongoEngine
 
 
 app: Flask = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {
-    'db': os.getenv("DB_NAME"),
-    'host': os.getenv("DB_HOST"),
-    'port': int(os.getenv("DB_PORT"))
+    'db': env("DB_NAME"),
+    'host': env("DB_HOST"),
+    'port': int(env("DB_PORT"))
 }
 app.config['CORS_HEADERS'] = ['Content-Type', 'Access-Control-Allow-Origin']
 app.config['CORS_ORIGINS'] = '*'
