@@ -48,7 +48,7 @@ def resolve_download(*_, comic, start=0, end) -> bool:
 
 
 @mutation.field("add")
-def resolve_add(*_) -> bool:
+def resolve_add(*_, comic) -> bool:
     pass
 
 
