@@ -111,4 +111,8 @@ type Query {
 type Mutation {
     visited(comic: String!, chapter: Float!): Boolean!
     checkpoint(comic: String!, chapter: Float!): Boolean!
+    download(comic: String!, start: Float, end: Float!): Boolean!
+    add(): Boolean!
+    delete(comic: String!): Boolean!
+    clean(comic: String!): Boolean!
 }

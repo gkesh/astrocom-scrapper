@@ -40,3 +40,23 @@ def resolve_checkpoint(*_, comic, chapter) -> bool:
     except:
         updated = False
     return updated
+
+
+@mutation.field("download")
+def resolve_download(*_, comic, start=0, end) -> bool:
+    pass
+
+
+@mutation.field("add")
+def resolve_add(*_) -> bool:
+    pass
+
+
+@mutation.field("delete")
+def resolve_delete(*_, comic) -> bool:
+    pass
+
+
+@mutation.field("clean")
+def resolve_clean(*_, comic) -> bool:
+    pass
