@@ -98,12 +98,19 @@ type ChapterResponse {
     error: [String]
 }
 
+type TypesResponse {
+    status: Boolean!
+    data: [ComicType]
+    error: [String]
+}
+
 type Query {
     authors: AuthorsResponse!
     publishers: PublishersResponse!
     comics: ComicsResponse!
     comic(comic: String!): ComicResponse!
     titles: ComicsResponse!
+    types: TypesResponse!
     chapters: ComicsResponse!
     chapter(comic: String!, number: Float!): ChapterResponse!
 }

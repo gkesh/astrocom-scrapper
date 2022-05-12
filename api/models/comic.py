@@ -1,6 +1,5 @@
-from email.policy import default
 from api import db
-from enum import IntEnum, unique
+from enum import IntEnum
 from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.genre import Genre

@@ -1,8 +1,7 @@
 from ariadne import ObjectType
 from api.models.author import Author
 from api.models.publisher import Publisher
-from api.models.comic import Comic
-from api.models.comic import Chapter
+from api.models.comic import Comic, ComicType
 
 
 query = ObjectType("Query")
@@ -63,6 +62,22 @@ def resolve_comic_titles(*_) -> dict:
         payload = {
             "status": True,
             "data": titles
+        }
+    except Exception as error:
+        payload = {
+            "status": False,
+            "error": [str(error)]
+        }
+    return payload
+
+
+@query.field("types")
+def resolve_comic_types(*_) -> dict:
+    try:
+        types: list[ComicType] = [item for item in list(ComicType)] 
+        payload = {
+            "status": True,
+            "data": types
         }
     except Exception as error:
         payload = {
