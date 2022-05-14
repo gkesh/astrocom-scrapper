@@ -137,3 +137,7 @@ def resolve_comic_chapter(*_, comic, number) -> dict:
             "error": [str(error)]
         }
     return payload
+
+
+def resolve_check_source(*_, url) -> bool:
+    pass

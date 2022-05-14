@@ -13,10 +13,26 @@ NO DATABASE OPERATIONS HERE!!
 
 @author gkesh
 """
+from typing import List
 from os import path, makedirs, getenv as env
 from engine.scrapper import scrape, ScrapperError
 from engine.crawler import crawlers
 from engine.saver import write
+
+
+"""
+Check
+
+Function to test whether a page link provided 
+has chapters inside it. This proves the validity of
+the page and lets us know that the link entered
+by the user is a valid one.
+
+@param source: str - Link to comic chapters page
+@returns boolean
+"""
+def check(source) -> bool:
+    pass
 
 
 """
@@ -32,7 +48,7 @@ comic.
 
 @returns list(float)
 """
-def peek(comic, source, external=False) -> list(float):
+def peek(comic, source, external=False) -> List[float]:
     retries = int(env('MAX_RETRIES'))
     while retries > 0:
         try:
@@ -57,12 +73,12 @@ saver module.
 
 @returns None
 """
-def download(comic, source, roof, external=False, floor = 0.0) -> None:
+def download(comic, source, roof, crawler="kissmanga", floor = 0.0) -> None:
     retries = int(env('MAX_RETRIES'))
     while floor <= roof:
         try:
             chapter = "{:.1f}".format(floor).replace('.0', '')
-            crawler = crawlers['kissmanga'] if not external else crawlers[comic]
+            crawler = crawlers[crawler]
 
             # Scrapping to get links for images
             images = scrape(crawler, link=f"{source}chapter-{chapter}")

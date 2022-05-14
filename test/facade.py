@@ -1,5 +1,6 @@
 from datetime import datetime
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from api.models.author import Author
@@ -70,7 +71,7 @@ def genre_get_or_create(name) -> Genre:
     return genre
 
 
-def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t, comic_c, comic_ch, comic_s, comic_g, comic_p, comic_o, comic_src):
+def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t, comic_c, comic_ch, comic_s, comic_cw, comic_g, comic_p, comic_o, comic_src):
     """
     Creating Comics
 
@@ -87,6 +88,7 @@ def save_facade(author_fn, author_ln, publisher_n, publisher_c, comic_n, comic_t
         chapters=chapter_documents,
         synopsis=comic_s,
         source=comic_src,
+        crawler=comic_cw,
         date_published=comic_p
     )
 
@@ -122,6 +124,7 @@ comic_facades = [
         },
         "code": "solo",
         "source": "https://kissmanga.org/chapter/manga-dr980474/",
+        "crawler": "kissmanga",
         "type": ComicType.MANHWA,
         "genres": ["Action", "Adventure", "Shounen", "Fantasy"],
         "ongoing": False,
@@ -141,6 +144,7 @@ comic_facades = [
         },
         "code": "kimetsu",
         "source": "https://kissmanga.org/manga/manga-to970571",
+        "crawler": "kissmanga",
         "type": ComicType.MANGA,
         "genres": ["Historical", "Adventure", "Shounen", "Fantasy"],
         "ongoing": False,
@@ -160,6 +164,7 @@ comic_facades = [
         },
         "code": "omniscient",
         "source": "https://kissmanga.org/chapter/manga-iw985579/",
+        "crawler": "kissmanga",
         "type": ComicType.MANHWA,
         "genres": ["Action", "Adventure", "Isekai", "Fantasy"],
         "ongoing": True,
@@ -179,6 +184,7 @@ comic_facades = [
         },
         "code": "kaiju8",
         "source": "https://kaijuno-8.com/manga/read-kaiju-no-8monster-8-",
+        "crawler": "kaiju8",
         "type": ComicType.MANGA,
         "genres": ["Action", "Comedy", "Mecha"],
         "ongoing": True,
@@ -201,5 +207,6 @@ for facade in comic_facades:
         comic_g=facade["genres"],
         comic_p=facade["date_published"],
         comic_o=facade["ongoing"],
-        comic_src=facade["source"]
+        comic_src=facade["source"],
+        comic_cw=facade["crawler"]
     )

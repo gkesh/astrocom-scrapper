@@ -9,7 +9,7 @@ download option.
 
 @author gkesh
 """
-from typing import Any
+from typing import Any, Tuple, List
 from bs4 import BeautifulSoup
 from urllib.error import URLError
 from urllib.request import Request, urlopen
@@ -19,7 +19,7 @@ class ScrapperError(Exception):
     pass
 
 
-def fetch(link) -> tuple(bool, Any):
+def fetch(link: str) -> Tuple[bool, Any]:
     try:
         page = urlopen(
             Request(
@@ -44,7 +44,7 @@ def soupify(scrapper):
 
 
 @soupify
-def scrape(crawler, **kwargs) -> list(str):
+def scrape(crawler, **kwargs) -> List[str]:
     if not kwargs['soup']:
         raise ScrapperError("Failed to pull page from link")
     return crawler(kwargs['soup'])

@@ -56,6 +56,7 @@ class Comic(db.Document):
     title = db.StringField(max_length=200, required=True)
     code = db.StringField(max_length=20, required=True, unique=True)
     source = db.URLField(required=True, unique=True)
+    crawler = db.StringField(max_lenth=20, required=True)
     type = db.EnumField(ComicType, default=ComicType.MANGA)
     genres = db.ListField(db.ReferenceField(Genre, dbref=True, reverse_delete_rule=1), default=[])
     chapters = db.EmbeddedDocumentListField(Chapter)
@@ -72,6 +73,7 @@ class Comic(db.Document):
             "title": self.title,
             "code": self.code,
             "source": self.source,
+            "crawler": self.crawler,
             "type": self.type,
             "genres": [genre.to_dict() for genre in self.select_related().genres],
             "chapters": [chapter.to_dict() for chapter in self.chapters],
