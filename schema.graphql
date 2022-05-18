@@ -68,6 +68,11 @@ type Reader {
     date_joined: String
 }
 
+type Selects {
+    types: [ComicType]
+    crawlers: [String]
+}
+
 type AuthorsResponse {
     status: Boolean!
     data: [Author]
@@ -98,9 +103,9 @@ type ChapterResponse {
     error: [String]
 }
 
-type TypesResponse {
+type SelectsResponse {
     status: Boolean!
-    data: [ComicType]
+    data: Selects
     error: [String]
 }
 
@@ -110,7 +115,7 @@ type Query {
     comics: ComicsResponse!
     comic(comic: String!): ComicResponse!
     titles: ComicsResponse!
-    types: TypesResponse!
+    selects: SelectsResponse!
     chapters: ComicsResponse!
     chapter(comic: String!, number: Float!): ChapterResponse!
 }

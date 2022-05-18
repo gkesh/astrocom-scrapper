@@ -2,6 +2,7 @@ from ariadne import ObjectType
 from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.comic import Comic, ComicType
+from engine.crawler import CrawlerFactory
 
 
 query = ObjectType("Query")
@@ -71,13 +72,18 @@ def resolve_comic_titles(*_) -> dict:
     return payload
 
 
-@query.field("types")
+@query.field("selects")
 def resolve_comic_types(*_) -> dict:
     try:
         types: list[ComicType] = [item for item in list(ComicType)] 
+        crawlers: list[str] = CrawlerFactory.crawlers
+
         payload = {
             "status": True,
-            "data": types
+            "data": {
+                "types": types,
+                "crawlers": crawlers
+            }
         }
     except Exception as error:
         payload = {
