@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
+from engine.crawler import CrawlerFactory
+
 
 class ScrapperError(Exception):
     pass
@@ -47,4 +49,4 @@ def soupify(scrapper):
 def scrape(crawler, **kwargs) -> List[str]:
     if not kwargs['soup']:
         raise ScrapperError("Failed to pull page from link")
-    return crawler(kwargs['soup'])
+    return CrawlerFactory.createCrawler(crawler, crawler(kwargs['soup'])).crawl()

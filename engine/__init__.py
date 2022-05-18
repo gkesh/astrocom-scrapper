@@ -16,7 +16,7 @@ NO DATABASE OPERATIONS HERE!!
 from typing import List
 from os import path, makedirs, getenv as env
 from engine.scrapper import scrape, ScrapperError
-from engine.crawler import crawlers
+from engine.crawler import CrawlerException
 from engine.saver import write
 
 
@@ -78,7 +78,6 @@ def download(comic, source, roof, crawler="kissmanga", floor = 0.0) -> None:
     while floor <= roof:
         try:
             chapter = "{:.1f}".format(floor).replace('.0', '')
-            crawler = crawlers[crawler]
 
             # Scrapping to get links for images
             images = scrape(crawler, link=f"{source}chapter-{chapter}")
@@ -96,7 +95,7 @@ def download(comic, source, roof, crawler="kissmanga", floor = 0.0) -> None:
         except ScrapperError:
             # Chapter test failed, Skipping...
             floor = floor + 0.1
-        except KeyError:
+        except CrawlerException:
             # TODO: Implement logging
             print("Crawler not found, exiting...")
             break
