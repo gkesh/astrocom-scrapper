@@ -31,7 +31,6 @@ class Crawler(ABC):
         super().__init__()
         self.soup = soup
 
-
     @abstractmethod
     def crawl(self) -> List[str]:
         pass
