@@ -32,6 +32,10 @@ class Crawler(ABC):
         self.soup = soup
 
     @abstractmethod
+    def collect(self) -> List[str]:
+        pass
+
+    @abstractmethod
     def crawl(self) -> List[str]:
         pass
 
@@ -39,6 +43,9 @@ class Crawler(ABC):
 class KissmangaCrawler(Crawler):
     def __init__(self, soup) -> None:
         super().__init__(soup)
+
+    def collect(self) -> List[str]:
+        return None
     
     def crawl(self) -> List[str]:
         return [img["src"] for img in self.soup.find("div", {"id" : "centerDivVideo"}).findAll("img", recursive = False)]
@@ -47,6 +54,9 @@ class KissmangaCrawler(Crawler):
 class KaijuCrawler(Crawler):
     def __init__(self, soup) -> None:
         super().__init__(soup)
+    
+    def collect(self) -> List[str]:
+        return None
 
     def crawl(self) -> List[str]:
         return [img["src"] for img in self.soup.find("div", {"class": "entry-content"}).findAll("img", recursive = True)]

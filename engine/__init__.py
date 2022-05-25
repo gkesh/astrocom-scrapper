@@ -31,8 +31,9 @@ by the user is a valid one.
 @param source: str - Link to comic chapters page
 @returns boolean
 """
-def check(source) -> bool:
-    pass
+def check(crawler, source) -> bool:
+    chapters = scrape(crawler, source).collect();
+    return chapters is not None
 
 
 """
@@ -80,7 +81,7 @@ def download(comic, source, roof, crawler="kissmanga", floor = 0.0) -> None:
             chapter = "{:.1f}".format(floor).replace('.0', '')
 
             # Scrapping to get links for images
-            images = scrape(crawler, link=f"{source}chapter-{chapter}")
+            images = scrape(crawler, link=f"{source}chapter-{chapter}").crawl()
 
             storage = path.join(env('OUT_DIR'), f"{comic}/chapter_{chapter}")
             if not path.isdir(storage): makedirs(storage)

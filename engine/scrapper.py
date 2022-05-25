@@ -9,12 +9,12 @@ download option.
 
 @author gkesh
 """
-from typing import Any, Tuple, List
+from typing import Any, Tuple
 from bs4 import BeautifulSoup
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
-from engine.crawler import CrawlerFactory
+from engine.crawler import Crawler, CrawlerFactory
 
 
 class ScrapperError(Exception):
@@ -46,7 +46,7 @@ def soupify(scrapper):
 
 
 @soupify
-def scrape(crawler, **kwargs) -> List[str]:
+def scrape(crawler, **kwargs) -> Crawler:
     if not kwargs['soup']:
         raise ScrapperError("Failed to pull page from link")
-    return CrawlerFactory.createCrawler(crawler, crawler(kwargs['soup'])).crawl()
+    return CrawlerFactory.createCrawler(crawler, crawler(kwargs['soup']))
