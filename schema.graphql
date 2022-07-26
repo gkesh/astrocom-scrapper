@@ -50,6 +50,7 @@ type Comic {
     type: ComicType
     genres: [Genre]
     author: Author
+    crawler: String
     publisher: Publisher
     chapters: [Chapter]
     count: Int
