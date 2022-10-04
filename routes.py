@@ -3,8 +3,8 @@ import json
 from api import app
 from api.gql.root import schema
 from ariadne import graphql_sync
-from flask import request, jsonify
 from ariadne.constants import PLAYGROUND_HTML
+from flask import request, jsonify
 from flask_cors import CORS, cross_origin
 
 
