@@ -1,7 +1,8 @@
 from api import db
+from api.models import ReusableDocument
 
 
-class Publisher(db.Document):
+class Publisher(ReusableDocument, db.Document):
     """
     Publisher class
 
@@ -20,3 +21,4 @@ class Publisher(db.Document):
             "country": self.country,
             "history": self.history
         }
+

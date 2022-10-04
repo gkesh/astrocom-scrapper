@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from ariadne import ObjectType
 from api.gql import NAME
 from api.models.comic import Comic
@@ -48,18 +49,16 @@ def resolve_download(*_, comic, start=0, end) -> bool:
 
 
 @mutation.field("add")
-def resolve_add(*_, comic) -> bool:
-    import json
-    info(NAME, json.dumps(dict(comic)))
-
+def resolve_add(*_, comic: Dict[str, Any]) -> bool:
+    
     return True
 
 
 @mutation.field("delete")
-def resolve_delete(*_, comic) -> bool:
+def resolve_delete(*_, comic: str) -> bool:
     pass
 
 
 @mutation.field("clean")
-def resolve_clean(*_, comic) -> bool:
+def resolve_clean(*_, comic: str) -> bool:
     pass

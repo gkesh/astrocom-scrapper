@@ -1,7 +1,8 @@
 from api import db
+from api.models import ReusableDocument
 
 
-class Author(db.Document):
+class Author(ReusableDocument, db.Document):
     """
     Author Class
     """

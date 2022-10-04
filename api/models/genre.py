@@ -1,7 +1,8 @@
 from api import db
+from api.models import ReusableDocument
 
 
-class Genre(db.Document):
+class Genre(ReusableDocument, db.Document):
     """
     Genre Class
 
