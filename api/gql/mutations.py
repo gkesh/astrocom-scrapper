@@ -1,11 +1,11 @@
-from xmlrpc.client import boolean
 from ariadne import ObjectType
+from api.gql import NAME
 from api.models.comic import Comic
 from api.models.comic import Chapter
+from logger.workers import info
 
 
 mutation = ObjectType("Mutation")
-
 
 @mutation.field("visited")
 def resolve_visited(*_, comic, chapter) -> bool:
@@ -49,7 +49,10 @@ def resolve_download(*_, comic, start=0, end) -> bool:
 
 @mutation.field("add")
 def resolve_add(*_, comic) -> bool:
-    pass
+    import json
+    info(NAME, json.dumps(dict(comic)))
+
+    return True
 
 
 @mutation.field("delete")

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+# Activating virtual environment
+source ./astrocom/bin/activate
+
+# Setting server environment 
+export FLASK_APP=app.py
+
+# Running development server
+flask run

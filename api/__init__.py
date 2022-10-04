@@ -15,6 +15,8 @@ from flask import Flask
 from flask_mongoengine import MongoEngine
 
 
+NAME = "API"
+
 app: Flask = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {
     'db': env("DB_NAME"),

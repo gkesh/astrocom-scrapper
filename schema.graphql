@@ -10,8 +10,20 @@ type Author {
     biography: String
 }
 
+input AuthorInput {
+    first_name: String!
+    last_name: String!
+    biography: String
+}
+
 type Publisher {
     id: ID
+    name: String!
+    country: String
+    history: String
+}
+
+input PublisherInput {
     name: String!
     country: String
     history: String
@@ -31,6 +43,11 @@ type Genre {
     description: String
 }
 
+input GenreInput {
+    name: String!
+    description: String
+}
+
 type Chapter {
     id: ID
     number: Float!
@@ -40,6 +57,13 @@ type Chapter {
     visited: Boolean
     checkpoint: Boolean
     date_released: String!
+}
+
+input ChapterInput {
+    number: Float!
+    title: String
+    pages: Int!
+    max: Int
 }
 
 type Comic {
@@ -58,6 +82,20 @@ type Comic {
     synopsis: String
     date_published: String
     date_updated: String
+}
+
+input ComicInput {
+    title: String!
+    source: String!
+    type: ComicType!
+    genres: [GenreInput]
+    author: AuthorInput
+    crawler: String
+    publisher: PublisherInput
+    chapters: [ChapterInput]
+    ongoing: Boolean
+    synopsis: String
+    date_published: String
 }
 
 type Reader {
@@ -125,7 +163,7 @@ type Mutation {
     visited(comic: String!, chapter: Float!): Boolean!
     checkpoint(comic: String!, chapter: Float!): Boolean!
     download(comic: String!, start: Float, end: Float!): Boolean!
-    add(comic: String!): Boolean!
+    add(comic: ComicInput!): Boolean!
     delete(comic: String!): Boolean!
     clean(comic: String!): Boolean!
 }

@@ -20,6 +20,8 @@ from engine.crawler import CrawlerException
 from engine.saver import write
 
 
+NAME = "ENGINE"
+
 """
 Check
 

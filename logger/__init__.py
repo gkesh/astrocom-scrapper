@@ -5,7 +5,7 @@ import logging
 
 
 STATIC = f"{path.dirname(path.abspath(__file__))}/static"
-LOG_FILE = f"{STATIC}/comigration.log"
+LOG_FILE = f"{STATIC}/astrocom.log"
 
 DATE_FORMAT =  "%d-%b-%y %H:%M:%S"
 LOG_FORMAT = "[%(asctime)s]%(message)s"
