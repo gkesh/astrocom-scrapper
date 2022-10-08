@@ -5,6 +5,7 @@ from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.comic import Comic, ComicType
 from engine.crawler import CrawlerFactory
+from mongoengine import Q
 
 
 query = QueryType()
@@ -16,10 +17,23 @@ def resolve_authors(*_) -> List[Dict]:
     return [author.to_dict() for author in Author.objects.all()]
 
 
+@query.field("search_authors")
+@responder(Exception)
+def resolve_search_authors(*_, keyword: str) -> List[Dict]:
+    return [author.to_dict() for author in Author.objects(
+        Q(first_name__istartswith=keyword) | Q(last_name__istartswith=keyword)
+    )]
+
 @query.field("publishers")
 @responder(Exception)
 def resolve_publishers(*_) -> List[Dict]:
     return [publisher.to_dict() for publisher in Publisher.objects.all()]
+
+
+@query.field("search_publishers")
+@responder(Exception)
+def resolve_search_publishers(*_, keyword: str) -> List[Dict]:
+    return [publisher.to_dict() for publisher in Publisher.objects(name__istartswith=keyword)]
 
 
 @query.field("comics")

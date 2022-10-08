@@ -161,7 +161,9 @@ type IDResponse implements Response {
 
 type Query {
     authors: AuthorsResponse!
+    search_authors(keyword: String!): AuthorsResponse!
     publishers: PublishersResponse!
+    search_publishers(keyword: String!): PublishersResponse!
     comics: ComicsResponse!
     comic(comic: String!): ComicResponse!
     titles: ComicsResponse!

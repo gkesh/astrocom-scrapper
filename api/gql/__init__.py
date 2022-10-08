@@ -1,4 +1,5 @@
 from typing import Callable
+from logger.workers import error
 
 
 NAME = "API_GRAPHQL"
@@ -12,6 +13,7 @@ def responder(exception: Exception):
                     "data": exc(*args, **kwargs)
                 }
             except exception as exp:
+                error(NAME, str(exp))
                 payload = {
                     "status": False,
                     "error": [str(exp)]
