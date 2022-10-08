@@ -12,10 +12,10 @@ class ComicType(IntEnum):
 
     Defines the type of the medium
     """
-    MANGA = 1 # Japanese
+    MANGA = 1
     WESTERN = 2
-    MANHUA = 3 # Chinese
-    MANHWA = 4 # Korean
+    MANHUA = 3
+    MANHWA = 4
     WEB = 5
 
 

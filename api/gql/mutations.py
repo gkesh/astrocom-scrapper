@@ -1,9 +1,9 @@
-from typing import Any, Dict
+from typing import Any, Dict, Tuple
 from ariadne import ObjectType
 from api.gql import NAME
 from api.models.comic import Comic
 from api.models.comic import Chapter
-from logger.workers import info
+from logger.workers import info, error
 
 
 mutation = ObjectType("Mutation")
@@ -18,8 +18,10 @@ def resolve_visited(*_, comic, chapter) -> bool:
         parent.save()
 
         updated = True
+        info(NAME, f"Updated visited status for chapter {chapter} of {comic}")
     except:
         updated = False
+        error(NAME, f"Failed to update visited status for chapter {chapter} of {comic}")
     return updated
 
 
@@ -38,8 +40,10 @@ def resolve_checkpoint(*_, comic, chapter) -> bool:
         parent.save()
 
         updated = True
+        info(NAME, f"Updated checkpoint for {comic} to chapter {chapter}")
     except:
         updated = False
+        error(NAME, f"Failed to update checkpoint for {comic} to chapter {chapter}")
     return updated
 
 
@@ -49,9 +53,9 @@ def resolve_download(*_, comic, start=0, end) -> bool:
 
 
 @mutation.field("add")
-def resolve_add(*_, comic: Dict[str, Any]) -> bool:
+def resolve_add(*_, comic: Dict[str, Any]) -> Tuple[bool, str]:
     
-    return True
+    return True, ""
 
 
 @mutation.field("delete")

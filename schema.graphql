@@ -112,39 +112,50 @@ type Selects {
     crawlers: [String]
 }
 
-type AuthorsResponse {
+interface Response {
+    status: Boolean!
+    error: [String]
+}
+
+type AuthorsResponse implements Response {
     status: Boolean!
     data: [Author]
     error: [String]
 }
 
-type PublishersResponse {
+type PublishersResponse implements Response {
     status: Boolean!
     data: [Publisher]
     error: [String]
 }
 
-type ComicsResponse {
+type ComicsResponse implements Response {
     status: Boolean!
     data: [Comic]
     error: [String]
 }
 
-type ComicResponse {
+type ComicResponse implements Response {
     status: Boolean!
     data: Comic
     error: [String]
 }
 
-type ChapterResponse {
+type ChapterResponse implements Response {
     status: Boolean!
     data: Chapter
     error: [String]
 }
 
-type SelectsResponse {
+type SelectsResponse implements Response {
     status: Boolean!
     data: Selects
+    error: [String]
+}
+
+type IDResponse implements Response {
+    status: Boolean!
+    data: ID
     error: [String]
 }
 
@@ -163,7 +174,7 @@ type Mutation {
     visited(comic: String!, chapter: Float!): Boolean!
     checkpoint(comic: String!, chapter: Float!): Boolean!
     download(comic: String!, start: Float, end: Float!): Boolean!
-    add(comic: ComicInput!): Boolean!
+    add(comic: ComicInput!): IDResponse!
     delete(comic: String!): Boolean!
     clean(comic: String!): Boolean!
 }
