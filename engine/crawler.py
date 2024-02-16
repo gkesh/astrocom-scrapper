@@ -63,14 +63,18 @@ class KaijuCrawler(Crawler):
 
 
 class CrawlerFactory:
-    crawlers = ["kissmanga", "kaiju8"]
+    crawlers = {
+        "kissmanga": KissmangaCrawler,
+        "kaiju8": KaijuCrawler
+    }
+
+    @staticmethod
+    def getCrawlers() -> List[str]:
+        return CrawlerFactory.crawlers.keys()
 
     @staticmethod
     def createCrawler(name, soup) -> Crawler:
-        if name not in CrawlerFactory.crawlers:
+        if name not in CrawlerFactory.crawlers.keys():
             raise CrawlerException("Invalid crawler name, please select thr right crawler!")
 
-        if name == "kissmanga":
-            return KissmangaCrawler(soup)
-        elif name == "kaiju8":
-            return KaijuCrawler(soup)
+        return CrawlerFactory.crawlers[name](soup)
