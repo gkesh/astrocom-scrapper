@@ -4,7 +4,7 @@ from logger.workers import error
 
 NAME = "API_GRAPHQL"
 
-def responder(exception: Exception):
+def responder(exception: Exception = Exception):
     def tolerator(exc: Callable):
         def inner(*args, **kwargs):
             try:
