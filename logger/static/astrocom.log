@@ -1,2 +1,9 @@
 [04-Oct-22 19:16:06][WARNING][API_MODELS] - Author not found, creating...
 [08-Oct-22 23:32:19][ERROR][API_GRAPHQL] - 'BaseQuerySet' object has no attribute 'find'
+[26-Feb-24 20:44:40][ERROR][API_GRAPHQL] - localhost:27017: [Errno 111] Connection refused, Timeout: 30s, Topology Description: <TopologyDescription id: 65dd3e393fa13a09cb41974d, topology_type: Single, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused')>]>
+[26-Feb-24 22:24:47][ERROR][API_GRAPHQL] - 'dict' object has no attribute 'chapters'
+[26-Feb-24 22:26:04][ERROR][API_GRAPHQL] - 'dict' object has no attribute 'chapters'
+[26-Feb-24 22:35:59][ERROR][API_GRAPHQL] - 'code'
+[26-Feb-24 22:57:40][ERROR][API_GRAPHQL] - cannot access local variable 'chapter_docs' where it is not associated with a value
+[26-Feb-24 22:58:27][ERROR][API_GRAPHQL] - ValidationError (Comic:None) (cannot parse date "Test Description": ['date_published'])
+[26-Feb-24 22:59:35][ERROR][API_GRAPHQL] - ValidationError (Comic:None) (cannot parse date "Test Description": ['date_published'])

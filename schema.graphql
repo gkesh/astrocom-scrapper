@@ -87,6 +87,7 @@ type Comic {
 input ComicInput {
     title: String!
     source: String!
+    code: String!
     type: ComicType!
     genres: [GenreInput]
     author: AuthorInput

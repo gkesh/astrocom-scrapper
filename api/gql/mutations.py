@@ -3,6 +3,7 @@ from ariadne import ObjectType
 from api.gql import NAME
 from api.models.comic import Comic
 from api.models.comic import Chapter
+from api.operations import save_comic
 from logger.workers import info, error
 
 
@@ -54,8 +55,22 @@ def resolve_download(*_, comic, start=0, end) -> bool:
 
 @mutation.field("add")
 def resolve_add(*_, comic: Dict[str, Any]) -> Tuple[bool, str]:
-    
-    return True, ""
+    try:
+        saved_comic = save_comic(comic)
+        info(NAME, f"Comic {saved_comic.title} was saved successfully!")
+
+        return {
+            "status": True,
+            "data": saved_comic._id,
+            "error": None
+        }
+    except Exception as exp:
+        error(NAME, str(exp))
+        return {
+            "status": False,
+            "data": None,
+            "error": [str(exp)]
+        }
 
 
 @mutation.field("delete")
