@@ -14,11 +14,10 @@ from bs4 import BeautifulSoup
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
+from engine import NAME
 from engine.crawler import Crawler, CrawlerFactory
-
-
-class ScrapperError(Exception):
-    pass
+from exceptions import ScrapperException
+from logger.workers import error
 
 
 def fetch(link: str) -> Tuple[bool, Any]:
@@ -32,8 +31,7 @@ def fetch(link: str) -> Tuple[bool, Any]:
 
         return True, page
     except URLError:
-        # TODO: Implement Logging
-        print("[Error] Invalid URL, Failed to fetch page.")
+        error(NAME, "Invalid URL, Failed to fetch page.")
         return False, None
 
 
@@ -48,5 +46,5 @@ def soupify(scrapper):
 @soupify
 def scrape(crawler, **kwargs) -> Crawler:
     if not kwargs['soup']:
-        raise ScrapperError("Failed to pull page from link")
+        raise ScrapperException("Failed to pull page from link")
     return CrawlerFactory.createCrawler(crawler, crawler(kwargs['soup']))

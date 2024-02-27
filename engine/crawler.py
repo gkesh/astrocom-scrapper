@@ -21,9 +21,7 @@ crawlers = {
 from abc import ABC, abstractmethod
 from typing import List
 
-
-class CrawlerException(Exception):
-    pass
+from exceptions import CrawlerException
 
 
 class Crawler(ABC):

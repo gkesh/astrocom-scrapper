@@ -84,4 +84,3 @@ class Comic(db.Document):
             "date_published": str(self.date_published.strftime('%d-%m-%Y')),
             "date_updated": str(self.date_updated.strftime('%d-%m-%Y'))
         }
-
