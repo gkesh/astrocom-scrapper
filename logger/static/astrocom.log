@@ -7,3 +7,4 @@
 [26-Feb-24 22:57:40][ERROR][API_GRAPHQL] - cannot access local variable 'chapter_docs' where it is not associated with a value
 [26-Feb-24 22:58:27][ERROR][API_GRAPHQL] - ValidationError (Comic:None) (cannot parse date "Test Description": ['date_published'])
 [26-Feb-24 22:59:35][ERROR][API_GRAPHQL] - ValidationError (Comic:None) (cannot parse date "Test Description": ['date_published'])
+[01-Mar-24 23:56:32][ERROR][API_GRAPHQL] - localhost:27017: [Errno 111] Connection refused, Timeout: 30s, Topology Description: <TopologyDescription id: 65e2b151217c4de89540da3a, topology_type: Single, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused')>]>
