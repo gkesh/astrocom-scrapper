@@ -19,6 +19,7 @@ crawlers = {
 }
 """
 from abc import ABC, abstractmethod
+from datetime import datetime
 from typing import List
 
 from exceptions import CrawlerException
@@ -43,7 +44,26 @@ class KissmangaCrawler(Crawler):
         super().__init__(soup)
 
     def collect(self) -> List[str]:
-        return None
+        chapter_list = [li for li in self.soup.find("ul", {"class": "version-chap"}).findAll("li", recursive = False)]
+        chapters = []
+
+        for idx, chapter in enumerate(chapter_list):
+            link = chapter.find("a")
+            date_released = datetime.strptime(chapter.find("span", {"class": "chapter-release-date"}).find("i").text, "%B %d, %Y").date() if idx == len(chapter_list) - 1 else datetime.now()
+            
+            source = link["href"]
+            title = link.text
+            number = float(title.split(" ")[1])
+
+            chapters.append({
+                "number": number,
+                "title": title,
+                "date_released": date_released,
+                "source": source,
+                "pages": 0
+            })
+
+        return chapters
     
     def crawl(self) -> List[str]:
         return [img["src"] for img in self.soup.find("div", {"id" : "centerDivVideo"}).findAll("img", recursive = False)]

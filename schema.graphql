@@ -54,6 +54,7 @@ type Chapter {
     title: String
     pages: Int!
     max: Int
+    source: String
     visited: Boolean
     checkpoint: Boolean
     date_released: String!
@@ -148,6 +149,12 @@ type ChapterResponse implements Response {
     error: [String]
 }
 
+type ChaptersResponse implements Response {
+    status: Boolean!
+    data: [Chapter]
+    error: [String]
+}
+
 type SelectsResponse implements Response {
     status: Boolean!
     data: Selects
@@ -171,6 +178,7 @@ type Query {
     selects: SelectsResponse!
     chapters: ComicsResponse!
     chapter(comic: String!, number: Float!): ChapterResponse!
+    download_chapters(comic: String!): ChaptersResponse!
 }
 
 type Mutation {

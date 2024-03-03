@@ -1,10 +1,9 @@
 from typing import List
 from os import path, makedirs, getenv as env
-from engine.scrapper import scrape, ScrapperError
-from engine.crawler import CrawlerException
+from engine.scrapper import scrape
 from engine.saver import write
 from engine import NAME
-
+from exceptions import ScrapperException, CrawlerException
 from logger.workers import error, info
 
 
@@ -20,7 +19,7 @@ by the user is a valid one.
 @returns boolean
 """
 def check(crawler, source) -> bool:
-    chapters = scrape(crawler, source).collect()
+    chapters = scrape(crawler, link=source).collect()
     return chapters is not None
 
 
@@ -81,7 +80,7 @@ def download(comic, source, roof, crawler="kissmanga", floor = 0.0) -> None:
             info(NAME, f"Wrote Chapter:: {chapter}")
 
             floor = floor + 0.1
-        except ScrapperError:
+        except ScrapperException:
             # Chapter test failed, Skipping...
             floor = floor + 0.1
         except CrawlerException:

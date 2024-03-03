@@ -82,6 +82,8 @@ def resolve_comic_chapter(*_, comic, number) -> dict:
 
     return chapter
 
-
-def resolve_check_source(*_, url) -> bool:
+@query.field("download_chapters")
+@responder
+def resolve_download_chapter(*_, comic) -> bool:
+    # TODO: Implement chapter list feature (check function)
     pass

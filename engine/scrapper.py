@@ -44,7 +44,8 @@ def soupify(scrapper):
 
 
 @soupify
-def scrape(crawler, **kwargs) -> Crawler:
+def scrape(crawler: str, **kwargs) -> Crawler:
     if not kwargs['soup']:
         raise ScrapperException("Failed to pull page from link")
-    return CrawlerFactory.createCrawler(crawler, crawler(kwargs['soup']))
+
+    return CrawlerFactory.createCrawler(crawler, kwargs['soup'])
