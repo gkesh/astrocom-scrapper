@@ -20,7 +20,7 @@ crawlers = {
 """
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 
 from exceptions import CrawlerException
 
@@ -43,7 +43,7 @@ class KissmangaCrawler(Crawler):
     def __init__(self, soup) -> None:
         super().__init__(soup)
 
-    def collect(self) -> List[str]:
+    def collect(self) -> List[Dict]:
         chapter_list = [li for li in self.soup.find("ul", {"class": "version-chap"}).findAll("li", recursive = False)]
         chapters = []
 

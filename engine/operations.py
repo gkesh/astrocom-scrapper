@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 from os import path, makedirs, getenv as env
 from engine.scrapper import scrape
 from engine.saver import write
@@ -32,15 +32,17 @@ comic.
 
 @param comic: str - Code for the target comic
 @param source: str - Chapters base link
-@param external: bool - Download source not default
 
-@returns list(float)
+@returns list(Chapter)
 """
-def peek(comic, source, external=False) -> List[float]:
+def peek(source, crawler="kissmanga") -> List[Dict]:
     retries = int(env('MAX_RETRIES'))
     while retries > 0:
         try:
-            pass
+            chapters = scrape(crawler, link=source).collect()
+            info(NAME, f"Discovered {len(chapters)} chapters")
+
+            return chapters
         except Exception:
            retries = retries - 1
 
@@ -56,7 +58,6 @@ saver module.
 @param comic: str - Code for the target comic
 @param source: str - Chapters base link
 @param roof: float - Stop download at
-@param external: bool - Download source not default
 @param floor: float - Start download from
 
 @returns None

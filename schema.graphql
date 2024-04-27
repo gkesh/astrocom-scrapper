@@ -178,6 +178,7 @@ type Query {
     selects: SelectsResponse!
     chapters: ComicsResponse!
     chapter(comic: String!, number: Float!): ChapterResponse!
+    check_chapters(source: String!, crawler: String!): ChaptersResponse!
     download_chapters(comic: String!): ChaptersResponse!
 }
 

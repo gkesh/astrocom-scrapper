@@ -5,6 +5,7 @@ from api.models.author import Author
 from api.models.publisher import Publisher
 from api.models.comic import Comic, ComicType
 from engine.crawler import CrawlerFactory
+from engine.operations import peek
 from mongoengine import Q
 
 
@@ -81,6 +82,13 @@ def resolve_comic_chapter(*_, comic, number) -> dict:
     chapter["max"] = count
 
     return chapter
+
+
+@query.field("check_chapters")
+@responder
+def resolve_check_chapter(*_, source, crawler) -> list[dict]:
+    return peek(source, crawler)
+
 
 @query.field("download_chapters")
 @responder
