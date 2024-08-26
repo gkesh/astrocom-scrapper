@@ -62,10 +62,10 @@ saver module.
 
 @returns None
 """
-def download(comic, source, crawler) -> None:
+def download(comic, source, crawler, range = None) -> None:
+    # TODO: Implement range based download
     retries = int(env('MAX_RETRIES'))
-    scrapper = scrape(crawler, link=source)
-    chapters = scrapper.collect()
+    chapters = peek(source, crawler)
 
     for chapter in chapters:
         info(NAME, f"Fetching chapter: {chapter['title'].strip()}")
@@ -74,6 +74,7 @@ def download(comic, source, crawler) -> None:
         try:
             # Scrapping to get links for images
             images = scrape(crawler, link=chapter['source']).crawl()
+            chapter['pages'] = len(images)
 
             for index, image in enumerate(images):
                 storage = path.join(env('OUT_DIR'), f"{comic}/chapter_{chapter_number}")
@@ -81,6 +82,8 @@ def download(comic, source, crawler) -> None:
 
                 # Writing images
                 write(index, chapter_number, image, storage)
+            
+            # Write chapter to database
                 
             info(NAME, f"Wrote Chapter:: {chapter}")
         except ScrapperException:

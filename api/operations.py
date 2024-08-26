@@ -46,7 +46,7 @@ def publisher_get_or_create(name, country) -> Publisher:
     return publisher
 
 
-def genre_get_or_create(name) -> Genre:
+def genre_get_or_create(name: str) -> Genre:
     """
     Creating Genres
 
@@ -66,6 +66,18 @@ def genre_get_or_create(name) -> Genre:
         )
     genre.save()
     return genre
+
+
+def add_chapter_to_comic(comic: str) -> Chapter:
+    """
+    Appending a new chapter to an existing comic
+
+    This requires that the user provide the code for the
+    existing comic based on which the chapter will be appended.
+    
+    Function will return the appeneded chapter instance.
+    """
+    pass
 
 
 def save_comic(comic: dict):
