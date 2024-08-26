@@ -75,7 +75,23 @@ def resolve_add(*_, comic: Dict[str, Any]) -> Tuple[bool, str]:
 
 @mutation.field("delete")
 def resolve_delete(*_, comic: str) -> bool:
-    pass
+    try:
+        comic = Comic.objects.get(code=comic)
+
+        if comic is not None:
+            raise Exception(f"Failed to find comic with code {comic}.")
+        
+        comic.delete()
+
+        return {
+            "status": True,
+            "error": []
+        }
+    except Exception as exp:
+        return {
+           "status": False,
+           "error": [str(exp)] 
+        }
 
 
 @mutation.field("clean")

@@ -119,6 +119,11 @@ interface Response {
     error: [String]
 }
 
+type GeneralResponse implements Response {
+    status: Boolean!
+    error: [String]
+}
+
 type AuthorsResponse implements Response {
     status: Boolean!
     data: [Author]
@@ -187,6 +192,6 @@ type Mutation {
     checkpoint(comic: String!, chapter: Float!): Boolean!
     download(comic: String!, start: Float, end: Float!): Boolean!
     add(comic: ComicInput!): IDResponse!
-    delete(comic: String!): Boolean!
+    delete(comic: String!): GeneralResponse!
     clean(comic: String!): Boolean!
 }

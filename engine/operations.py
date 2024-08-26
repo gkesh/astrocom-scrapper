@@ -4,7 +4,7 @@ from engine.scrapper import scrape
 from engine.saver import write
 from engine import NAME
 from exceptions import ScrapperException, CrawlerException
-from logger.workers import error, info
+from logger.workers import error, info, warn
 
 
 """
@@ -35,7 +35,7 @@ comic.
 
 @returns list(Chapter)
 """
-def peek(source, crawler="kissmanga") -> List[Dict]:
+def peek(source, crawler) -> List[Dict]:
     retries = int(env('MAX_RETRIES'))
     while retries > 0:
         try:
@@ -62,31 +62,34 @@ saver module.
 
 @returns None
 """
-def download(comic, source, roof, crawler="kissmanga", floor = 0.0) -> None:
+def download(comic, source, crawler) -> None:
     retries = int(env('MAX_RETRIES'))
-    while floor <= roof:
+    scrapper = scrape(crawler, link=source)
+    chapters = scrapper.collect()
+
+    for chapter in chapters:
+        info(NAME, f"Fetching chapter: {chapter['title'].strip()}")
+        chapter_number = chapter['number']
+
         try:
-            chapter = "{:.1f}".format(floor).replace('.0', '')
-
             # Scrapping to get links for images
-            images = scrape(crawler, link=f"{source}chapter-{chapter}").crawl()
+            images = scrape(crawler, link=chapter['source']).crawl()
 
-            storage = path.join(env('OUT_DIR'), f"{comic}/chapter_{chapter}")
-            if not path.isdir(storage): makedirs(storage)
-
-            # Writing images
             for index, image in enumerate(images):
-                write(index, chapter, image, storage)
-            
-            info(NAME, f"Wrote Chapter:: {chapter}")
+                storage = path.join(env('OUT_DIR'), f"{comic}/chapter_{chapter_number}")
+                if not path.isdir(storage): makedirs(storage)
 
-            floor = floor + 0.1
+                # Writing images
+                write(index, chapter_number, image, storage)
+                
+            info(NAME, f"Wrote Chapter:: {chapter}")
         except ScrapperException:
             # Chapter test failed, Skipping...
-            floor = floor + 0.1
+            error(NAME, f"Failed to scrape chapter: {chapter_number}")
         except CrawlerException:
             error(NAME, "Crawler not found, exiting...")
             break
         except Exception:
+            warn(NAME, f"Error while fetching chapter {chapter_number}, Retrying [{6 - retries} / 5]...")
             if retries == 0: break
             retries = retries - 1

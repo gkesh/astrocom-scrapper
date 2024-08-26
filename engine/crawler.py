@@ -39,6 +39,10 @@ class Crawler(ABC):
         pass
 
 
+class MangakakalotCrawler(Crawler):
+    pass
+
+
 class KissmangaCrawler(Crawler):
     def __init__(self, soup) -> None:
         super().__init__(soup)
@@ -66,7 +70,7 @@ class KissmangaCrawler(Crawler):
         return chapters
     
     def crawl(self) -> List[str]:
-        return [img["src"] for img in self.soup.find("div", {"id" : "centerDivVideo"}).findAll("img", recursive = False)]
+        return [img["src"] for img in self.soup.find("div", {"class" : "reading-content"}).findAll("img", recursive = True)]
 
 
 class KaijuCrawler(Crawler):
@@ -82,6 +86,7 @@ class KaijuCrawler(Crawler):
 
 class CrawlerFactory:
     crawlers = {
+        "mangakakalot": MangakakalotCrawler,
         "kissmanga": KissmangaCrawler,
         "kaiju8": KaijuCrawler
     }

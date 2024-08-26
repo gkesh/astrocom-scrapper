@@ -8,3 +8,36 @@
 [26-Feb-24 22:58:27][ERROR][API_GRAPHQL] - ValidationError (Comic:None) (cannot parse date "Test Description": ['date_published'])
 [26-Feb-24 22:59:35][ERROR][API_GRAPHQL] - ValidationError (Comic:None) (cannot parse date "Test Description": ['date_published'])
 [01-Mar-24 23:56:32][ERROR][API_GRAPHQL] - localhost:27017: [Errno 111] Connection refused, Timeout: 30s, Topology Description: <TopologyDescription id: 65e2b151217c4de89540da3a, topology_type: Single, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused')>]>
+[10-Aug-24 15:23:25][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:26][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:27][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:28][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:29][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:30][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:30][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:31][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:23:32][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:26:15][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:26:16][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:26:17][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:26:18][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:26:31][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:26:32][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:27:15][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:27:16][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:27:17][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:28:21][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-freechapter-0
+[10-Aug-24 15:28:22][ERROR][ENGINE] - Invalid URL, Failed to fetch page.
+[10-Aug-24 15:28:22][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-freechapter-0.1
+[10-Aug-24 15:28:45][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-free/chapter-0
+[10-Aug-24 15:28:48][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-free/chapter-0
+[10-Aug-24 15:28:51][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-free/chapter-0
+[10-Aug-24 15:28:53][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-free/chapter-0
+[10-Aug-24 15:28:56][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-free/chapter-0
+[10-Aug-24 15:28:59][ERROR][ENGINE] - https://kissmanga.in/kissmanga/tales-of-demons-and-gods-kiss-manga-free/chapter-0
+[26-Aug-24 14:16:00][ERROR][ENGINE] - None
+[26-Aug-24 14:16:00][ERROR][ENGINE] - None
+[26-Aug-24 14:16:00][ERROR][ENGINE] - None
+[26-Aug-24 14:16:00][ERROR][ENGINE] - None
+[26-Aug-24 14:16:00][ERROR][ENGINE] - None
+[26-Aug-24 14:16:00][ERROR][ENGINE] - None
